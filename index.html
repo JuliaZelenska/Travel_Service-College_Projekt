@@ -4,6 +4,7 @@
 
  	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 
 	<title>Travel service</title>
 </head>
@@ -11,13 +12,15 @@
 <body>
 	
 	<nav class="navbar">
-		<div class="grid-item logo"><img src="img/logo" alt="logo"></div>
+		<div class="grid-item logo">
+			<img src="img/logo.png" alt="logo">
+		</div>
 
 		<div class="grid-item navigation">
 			<ul>
-				<li><a href="#places">Miejsca</a></li>
-				<li><a href="#offer">Oferty</a></li>
-				<li><a href="#about">O nas</a></li>
+				<li><a href="#places">Miejsca</a>|</li>
+				<li><a href="#offer">Oferty</a>|</li>
+				<li><a href="#about">O nas</a>|</li>
 				<li><a href="#contact">Kontakt</a></li>
 			</ul>
 		</div>
@@ -32,44 +35,86 @@
 	</div>
 
 	<hr>
+	
+		<div id='filter'>
+			<div  v-on:click="greet">
+				<input type="checkbox" id="ocean" value="ocean" v-model="filters">
+				<label for="jack">Ocean</label>
+				<input type="checkbox" id="mountains" value="mountains" v-model="filters">
+				<label for="jack">Góry</label>
+				<input type="checkbox" id="beach" value="beach" v-model="filters">
+				<label for="john">Plaża</label>
+				<input type="checkbox" id="famousePlaces" value="famousePlaces" v-model="filters">
+				<label for="mike">Zabytki</label>
 
-	<div class="countries">
-		<div class="grid-item spain">
-			<div class="oferta">
-				<h3>Spain</h3>
-				<span class="cena">800$-1200$</span>
+				<br>
+				<span>Resultaty: {{ filters }}</span>
 			</div>
 		</div>
-		<div class="grid-item italy">
-			<div class="oferta">
-				<h3>Italy</h3>
-				<span class="cena">800$-1200$</span>
-			</div>	
-		</div>
-		<div class="grid-item egypt">
-			<div class="oferta">
-				<h3>Egypt</h3>
-				<span class="cena">800$-1200$</span>
-			</div>
-		</div>
-		<div class="grid-item us">
-			<div class="oferta">
-				<h3>United states</h3>
-				<span class="cena">800$-1200$</span>
-			</div>
-		</div>
-		<div class="grid-item china">
-			<div class="oferta">
-				<h3>China</h3>
-				<span class="cena">800$-1200$</span>
-			</div>	
-		</div>
-		<div class="grid-item germany">
-			<div class="oferta">
-				<h3>Germany</h3>
-				<span class="cena">800$-1200$</span>
-			</div>	
+
+	<div class="countries" id="countries">
+		
+		<div v-bind:style="city.img" v-for="city in cities" class="grid-item oferta">
+			<h3>{{city.name}}</h3>
+			<span class="cena">{{city.price}}</span><br>
+			<a href="#">Sprawdż ofertę ></a>
 		</div>
 	</div>
+
+
+	<div class="opisOfert">
+		<div id="spain">
+		</div> 
+
+	</div>
+
+
+<script>
+
+
+var example1 = new Vue({
+  el: '#countries',
+  data: {
+    cities: [
+		
+		{"name":"Australia", "price":"600$ - 1000$", "img":"australia.jpg", "value":"ocean"},
+		{"name":"Chiny", "price":"800$ - 1500$", "img":"china.jpg", "value":"mountains"},
+		{"name":"Egypt", "price":"300$ - 1200$", "img":"egypt.jpg", "value":"beach"},
+		{"name":"Anglia", "price":"1200$ - 10000$", "img":"england.jpg", "value":"famousPlaces"},
+		{"name":"Finlanda", "price":"1000$ - 12000$", "img":"finland.jpg", "value":"mountains"},
+		{"name":"Niemcy", "price":"400$ - 800$", "img":"germany.jpg", "value":"famousPlaces"},
+		{"name":"Grecja", "price":"800$ - 1000$", "img":"greece.jpg", "value":"beach"},
+		{"name":"Grenlandia", "price":"1500$ - 3000$", "img":"greenland.jpg", "value":"ocean"},
+		{"name":"India", "price":"100$ - 800$", "img":"india.jpg", "value":"beach"},
+		{"name":"Wlochy", "price":"1500$ - 3000$", "img":"italy.jpg", "value":"mountains"},
+		{"name":"Mexyk", "price":"100$ - 800$", "img":"mexico.jpg", "value":"beach"},
+		{"name":"Norwegia", "price":"1500$ - 3000$", "img":"norway.jpg", "value":"mountains"},
+		{"name":"Hiszpania", "price":"1500$ - 3000$", "img":"spain.jpg", "value":"beach"},
+		{"name":"Tailandia", "price":"1500$ - 3000$", "img":"thailand.jpg", "value":"beach"},
+		{"name":"USA", "price":"1500$ - 3000$", "img":"usa.jpg", "value":"famousPlaces", "style":{
+			  background: 'url(img/england.jpg) no-repeat center',
+			backgroundSize:  'cover',
+			height: '15em'
+		}}
+	]
+  }
+})
+
+new Vue({
+  el: '#filter',
+  data: {
+    filters: []
+  },
+   methods: {
+    greet: function () {
+      
+    }
+  }
+})
+
+
+
+</script>
+
 
 </body>
